@@ -61,7 +61,7 @@ app.use("/api/auth", userRoutes);
 
 /* ================= SERVE REACT ================= */
 if (process.env.NODE_ENV === "production") {
-  const frontendBuildPath = path.join(__dirname, "../Frontend/build");
+  const frontendBuildPath = path.join(__dirname, "../Frontend/dist");
   app.use(express.static(frontendBuildPath));
 
   // Catch all non-API routes and serve React
