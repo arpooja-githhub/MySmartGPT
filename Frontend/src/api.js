@@ -12,6 +12,7 @@ const API = axios.create({
   withCredentials: true,
 });
 
-export const googleAuth = (code) => {
-  return API.get(`/api/auth/google?code=${code}`);
+export const googleLogin = () => {
+  window.location.href =
+    "https://mysmartgpt.onrender.com/api/auth/google";
 };
