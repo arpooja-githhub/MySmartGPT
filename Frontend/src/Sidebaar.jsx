@@ -4,7 +4,8 @@ import { useContext,useEffect } from 'react';
 import { MyContext } from './MyContext.jsx';
 import {v1 as uuidv1} from "uuid";
 
-const user = JSON.parse(localStorage.getItem("user-info"));
+const token = localStorage.getItem("token");
+
 
 function Sidebar(){
     const {allThreads,setAllThreads,currThreadId,setNewChat,setPrompt,setReply,setcurrThreadId,setPrevChats} = useContext(MyContext);
@@ -42,7 +43,13 @@ function Sidebar(){
 
     const getAllThreads = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/thread`);
+        const response = await fetch(`${API_URL}/api/thread`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        });
+
 
     if (!response.ok) {
       console.error("Failed to fetch threads");
@@ -56,7 +63,7 @@ function Sidebar(){
       title: thread.title
     }));
 
-    setAllThreads(filteredData); // ✅ ONLY THIS
+    setAllThreads(filteredData); 
   } catch (err) {
     console.log(err);
   }
@@ -80,7 +87,14 @@ function Sidebar(){
     const changeThread = async(newthreadId)=>{
         setcurrThreadId(newthreadId);
         try{
-            const response = await fetch(`${API_URL}/api/thread/${newthreadId}`);
+            // const response = await fetch(`${API_URL}/api/thread/${newthreadId}`);
+            const response = await fetch(`${API_URL}/api/thread/${newthreadId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                });
+
             const res = await response.json();
             console.log(res);
             setPrevChats(res);
@@ -100,7 +114,7 @@ function Sidebar(){
                 {
                     method: "DELETE",
                     headers: {
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${token}`,
                     },
                 }
 );

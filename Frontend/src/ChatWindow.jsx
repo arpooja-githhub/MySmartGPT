@@ -9,7 +9,7 @@ import { Content } from 'openai/resources/containers/files.js';
 import SpeechRecognition,{useSpeechRecognition} from 'react-speech-recognition';
 
 import { useNavigate } from "react-router-dom";
-const user = JSON.parse(localStorage.getItem("user-info") || "{}");
+
 
 
 
@@ -21,23 +21,26 @@ function ChatWindow(){
     const [isOpen,setIsOpen] = useState(false); //set default false
     const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+            if (!token) {
+                navigate("/", { replace: true });
+            }
+            }, []);
 
 
 
-  const handleLogout = () => {
-    console.log("Logging out...");
+        const handleLogout = () => {
+            localStorage.removeItem("token");
 
-    localStorage.removeItem("user-info");
+            setPrevChats([]);
+            setPrompt("");
+            setReply("");
+            setNewChat(true);
 
-    setPrevChats([]);
-    setPrompt("");
-    setReply("");
-    setNewChat(true);
-
-    setIsAuthenticated(false); 
-
-    navigate("/login", { replace: true });
-  };
+            setIsAuthenticated(false);
+            navigate("/", { replace: true });
+            };
 
 
      
@@ -47,9 +50,10 @@ function ChatWindow(){
         console.log("message : ",prompt," threadId ",currThreadId);
         const options = {
             method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
             body:JSON.stringify({
                 message:prompt,
                 threadId:currThreadId
@@ -87,7 +91,7 @@ function ChatWindow(){
         setIsOpen(!isOpen);
     }
 
-      // ⬇️ 3. Add mic handler function HERE
+    
   const getText = () => {
     if (!browserSupportsSpeechRecognition) {
       alert("Your browser doesn't support speech recognition.");
@@ -102,7 +106,7 @@ function ChatWindow(){
     }
   };
 
-  // ⬇️ 4. Sync transcript into your input HERE
+  
   useEffect(() => {
     if (transcript) {
       setPrompt(transcript);
@@ -132,8 +136,8 @@ function ChatWindow(){
                
                 <div className="dropDownItem"><i className="fa-solid fa-gear"></i>Settings</div>
                  
-                <div className="dropDownUser"> <div className="userName">{user?.name || "User"}</div>
-                    <div className="userEmail">{user?.email || ""}</div>
+                <div className="dropDownUser"> <div className="userName">User</div>
+                    <div className="userEmail"></div>
                 </div>  
                 <div className="dropDownItem" onClick={handleLogout}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i> Log out
