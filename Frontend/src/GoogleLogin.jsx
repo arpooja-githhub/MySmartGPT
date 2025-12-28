@@ -18,11 +18,14 @@ function GoogleLogin() {
   }
 }, []);
 
+  // const handleGoogleLogin = () => {
+  //   // Redirect browser to backend
+  //   window.location.href =
+  //     "https://mysmartgpt.onrender.com/api/auth/google";
+  // };
   const handleGoogleLogin = () => {
-    // Redirect browser to backend
-    window.location.href =
-      "https://mysmartgpt.onrender.com/api/auth/google";
-  };
+  window.location.href = "https://mysmartgpt.onrender.com/api/auth/google";
+};
 
   return (
     <div className="login-container">
