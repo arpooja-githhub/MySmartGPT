@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import OAuthSuccess from "./0AuthSuccess.jsx";
 
+
 function AppRoutes() {
   const { isAuthenticated, setIsAuthenticated } = useContext(MyContext);
   const [loading, setLoading] = useState(true);
