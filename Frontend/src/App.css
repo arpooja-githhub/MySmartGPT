@@ -1,0 +1,18 @@
+*{
+    color:#ececec;
+    font-family: Roboto,"Open Sans",'Helvetica Neue',sans-serif;
+}
+/* Example CSS for your main layout */
+
+
+
+
+body{
+    margin:0;
+    padding:0;
+}
+
+.app{
+    background-color: #212121;
+ 
+}
