@@ -3,17 +3,17 @@ import cors from "cors";
 import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import MongoStore from "connect-mongo";
 import chatRoutes from "./routes/chat.js";
 import userRoutes from "./routes/user.js";
 
+// dotenv.config();
 // Fix __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -79,6 +79,8 @@ const connectDB = async () => {
     console.error("MongoDB connection failed", err);
   }
 };
+
+
 
 /* ================= START SERVER ================= */
 app.listen(PORT, () => {
