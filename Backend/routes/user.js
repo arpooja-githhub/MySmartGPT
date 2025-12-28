@@ -6,6 +6,7 @@ import { googleLogin } from "../controllers/authController.js";
 const router = express.Router();
 
 
+
 router.get("/test", (req, res) => {
   res.send("test pass");
 });
