@@ -55,6 +55,16 @@ import jwt from "jsonwebtoken";
 export const googleLogin = async (req, res) => {
   try {
     const { code } = req.query;
+    if (!code) {
+      const authUrl = oauth2client.generateAuthUrl({
+        access_type: "offline",
+        scope: [
+          "https://www.googleapis.com/auth/userinfo.profile",
+          "https://www.googleapis.com/auth/userinfo.email",
+        ],
+      });
+      return res.redirect(authUrl);
+    }
 
     const googleRes = await oauth2client.getToken(code);
     oauth2client.setCredentials(googleRes.tokens);
@@ -77,7 +87,7 @@ export const googleLogin = async (req, res) => {
       { expiresIn: process.env.JWT_TIMEOUT }
     );
 
-    // 🔥 REDIRECT TO FRONTEND
+    // REDIRECT TO FRONTEND
     res.redirect(
       `${process.env.CLIENT_URL}/oauth-success?token=${token}`
     );
