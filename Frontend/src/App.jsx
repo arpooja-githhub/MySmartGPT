@@ -6,7 +6,7 @@ import {useState} from 'react';
 import {v1 as uuidv1} from "uuid";
 import AppRoutes from "./Routes.jsx";
 import RefreshHandler from "./RefreshHandler.jsx";
-import OAuthSuccess from "./pages/OAuthSuccess";
+import OAuthSuccess from "./0AuthSuccess.jsx";
 import { BrowserRouter } from "react-router-dom";
 import {GoogleOAuthProvider} from '@react-oauth/google';
 

@@ -4,6 +4,7 @@ import NotFound from "./NotFound.jsx";
 import Layout from "./Layout.jsx";
 import { useContext } from "react";
 import { MyContext } from "./MyContext.jsx";
+import OAuthSuccess from "./0AuthSuccess.jsx";
 
 function AppRoutes() {
   const { isAuthenticated } = useContext(MyContext);
