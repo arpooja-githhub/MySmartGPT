@@ -5,7 +5,7 @@ import session from "express-session";
 import path from "path";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
-
+import MongoStore from "connect-mongo";
 import chatRoutes from "./routes/chat.js";
 import userRoutes from "./routes/user.js";
 
@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 //     })
 //   );
 // }
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["https://mysmartgpt.onrender.com"];
 
 app.use(
   cors({
@@ -48,17 +48,24 @@ app.use(
 
 
 // Session
+// Session with MongoStore
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "secret",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI, // Your MongoDB connection string
+      collectionName: "sessions",        // Optional: name of collection to store sessions
+    }),
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // true if using HTTPS
       sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24, // 1 day in milliseconds
     },
   })
 );
+
 
 /* ROUTES */
 app.use("/api", chatRoutes);
