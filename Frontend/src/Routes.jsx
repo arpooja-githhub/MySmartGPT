@@ -18,7 +18,7 @@ function AppRoutes() {
           isAuthenticated ? <Layout /> : <Navigate to="/login" />
         }
       />
-
+    <Route path="/oauth-success" element={<OAuthSuccess />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
