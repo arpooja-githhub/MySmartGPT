@@ -140,3 +140,21 @@ input:focus{
   font-size: 12px;
   color: #aaa;
 }
+.chatWindow {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.inputBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inputBox input {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+}
