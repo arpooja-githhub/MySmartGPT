@@ -71,6 +71,25 @@ function ChatWindow(){
         }
         setLoading(false);
     }
+
+    useEffect(() => {
+        if (!prompt || !reply) return;
+
+        setPrevChats(prev => [
+            ...prev,
+            {
+            role: "user",
+            content: prompt,
+            },
+            {
+            role: "assistant",
+            content: reply,
+            },
+        ]);
+
+        setPrompt("");
+        }, [reply]);
+
    
 
 
