@@ -98,26 +98,43 @@ function ChatWindow(){
     }
 
     
-  const getText = () => {
-    if (!browserSupportsSpeechRecognition) {
-      alert("Your browser doesn't support speech recognition.");
-      return;
-    }
+//   const getText = () => {
+//     if (!browserSupportsSpeechRecognition) {
+//       alert("Your browser doesn't support speech recognition.");
+//       return;
+//     }
 
-    if (listening) {
-      SpeechRecognition.stopListening();
-    } else {
-      resetTranscript();
-      SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
-    }
-  };
+//     if (listening) {
+//       SpeechRecognition.stopListening();
+//     } else {
+//       resetTranscript();
+//       SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
+//     }
+//   };
 
   
-  useEffect(() => {
-    if (transcript) {
-      setPrompt(transcript);
-    }
-  }, [transcript]);
+//   useEffect(() => {
+//     if (transcript) {
+//       setPrompt(transcript);
+//     }
+//   }, [transcript]);
+
+const getText = () => {
+  if (!browserSupportsSpeechRecognition) {
+    alert("Your browser doesn't support speech recognition.");
+    return;
+  }
+
+  // Start listening continuously
+  SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
+};
+
+useEffect(() => {
+  if (transcript) {
+    setPrompt(transcript);
+  }
+}, [transcript]);
+
 
   const stopMic = () => {
   SpeechRecognition.stopListening();
