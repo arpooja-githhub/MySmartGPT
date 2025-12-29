@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "./MyContext.jsx";
+import { MyContext } from "../MyContext";
 
 function OAuthSuccess() {
   const navigate = useNavigate();
@@ -12,14 +12,16 @@ function OAuthSuccess() {
 
     if (token) {
       localStorage.setItem("token", token);
-      setIsAuthenticated(true); 
+      setIsAuthenticated(true);
 
+      // clean URL
       window.history.replaceState({}, document.title, "/thread");
-      navigate("/thread"); // navigate to chat
+
+      navigate("/thread", { replace: true });
     } else {
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
-  }, [navigate, setIsAuthenticated]);
+  }, []);
 
   return <p>Logging you in...</p>;
 }

@@ -1,31 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./GoogleLogin.css";
-import { useEffect } from "react";
 
 function GoogleLogin() {
-  const navigate = useNavigate();
-   // HANDLE REDIRECT FROM BACKEND
-  useEffect(() => {
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
-
-  if (token) {
-    localStorage.setItem("token", token);
-    window.history.replaceState({}, document.title, "/");
-
-    navigate("/thread");
-  }
-}, []);
-
-  // const handleGoogleLogin = () => {
-  //   // Redirect browser to backend
-  //   window.location.href =
-  //     "https://mysmartgpt.onrender.com/api/auth/google";
-  // };
   const handleGoogleLogin = () => {
-  window.location.href = "https://mysmartgpt.onrender.com/api/auth/google";
-};
+    window.location.href = "https://mysmartgpt.onrender.com/api/auth/google";
+  };
 
   return (
     <div className="login-container">
@@ -52,5 +31,3 @@ function GoogleLogin() {
 }
 
 export default GoogleLogin;
-
-
