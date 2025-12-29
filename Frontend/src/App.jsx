@@ -9,9 +9,34 @@ function App() {
     !!localStorage.getItem("token")
   );
 
+  const [allThreads, setAllThreads] = useState([]);
+  const [prevChats, setPrevChats] = useState([]);
+  const [currThreadId, setcurrThreadId] = useState(uuidv1());
+  const [newChat, setNewChat] = useState(true);
+  const [prompt, setPrompt] = useState("");
+  const [reply, setReply] = useState(null);
+
   const providerValues = {
     isAuthenticated,
     setIsAuthenticated,
+
+    allThreads,
+    setAllThreads,
+
+    prevChats,
+    setPrevChats,
+
+    currThreadId,
+    setcurrThreadId,
+
+    newChat,
+    setNewChat,
+
+    prompt,
+    setPrompt,
+
+    reply,
+    setReply,
   };
 
   return (
@@ -22,6 +47,7 @@ function App() {
 }
 
 export default App;
+
 
 // import "./App.css";
 // import { useState } from "react";

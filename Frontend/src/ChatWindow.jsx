@@ -5,7 +5,7 @@ import { MyContext } from './MyContext.jsx';
 import { useContext,useState,useEffect } from 'react';
 
 import {ScaleLoader} from 'react-spinners';
-import { Content } from 'openai/resources/containers/files.js';
+
 import SpeechRecognition,{useSpeechRecognition} from 'react-speech-recognition';
 
 import { useNavigate } from "react-router-dom";
@@ -22,11 +22,11 @@ function ChatWindow(){
     const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
     useEffect(() => {
-        const token = localStorage.getItem("token");
-            if (!token) {
-                navigate("/", { replace: true });
-            }
-            }, []);
+        if (!localStorage.getItem("token")) {
+            navigate("/", { replace: true });
+        }
+        }, [navigate]);
+
 
 
 
@@ -39,7 +39,7 @@ function ChatWindow(){
             setNewChat(true);
 
             setIsAuthenticated(false);
-            navigate("/", { replace: true });
+            navigate("/login", { replace: true });
             };
 
 
@@ -71,21 +71,8 @@ function ChatWindow(){
         }
         setLoading(false);
     }
-    //Append new chats to previous chats
-    useEffect(()=>{
-        if(prompt && reply){
-            setPrevChats(prevChats=>  [...prevChats,{
-                    role:"user",
-                    content:prompt,
-                },{
-                    role:"assistant",
-                    content:reply,
+   
 
-                }]);
-        }
-        setPrompt("");
-
-    },[reply]);
 
     const handleProfileClick = ()=>{
         setIsOpen(!isOpen);
