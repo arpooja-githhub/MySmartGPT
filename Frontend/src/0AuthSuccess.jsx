@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "../MyContext";
+import { MyContext } from "./MyContext.jsx";
 
 function OAuthSuccess() {
   const navigate = useNavigate();
