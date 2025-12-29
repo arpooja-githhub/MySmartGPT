@@ -1,23 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import GoogleLogin from "./GoogleLogin.jsx";
-import NotFound from "./NotFound.jsx";
 import Layout from "./Layout.jsx";
-import { useContext, useEffect, useState } from "react";
-import { MyContext } from "./MyContext.jsx";
 import OAuthSuccess from "./0AuthSuccess.jsx";
-
+import { useContext } from "react";
+import { MyContext } from "./MyContext.jsx";
 
 function AppRoutes() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(MyContext);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (token) setIsAuthenticated(true);
-  setLoading(false);
-}, [setIsAuthenticated]);
-
-  if (loading) return <p>Loading...</p>; // prevent early redirect
+  const { isAuthenticated } = useContext(MyContext);
 
   return (
     <Routes>
@@ -32,15 +21,12 @@ function AppRoutes() {
 
       <Route path="/oauth-success" element={<OAuthSuccess />} />
 
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 }
 
 export default AppRoutes;
-
-
-
 
 
 

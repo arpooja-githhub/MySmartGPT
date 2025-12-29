@@ -3,43 +3,25 @@ import { MyContext } from './MyContext.jsx';
 import { useState } from 'react';
 import { v1 as uuidv1 } from "uuid";
 import AppRoutes from "./Routes.jsx";
-import RefreshHandler from "./RefreshHandler.jsx";
-import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
-  const [prompt, setPrompt] = useState("");
-  const [reply, setReply] = useState(null);
-  const [currThreadId, setcurrThreadId] = useState(uuidv1());
-  const [prevChats, setPrevChats] = useState([]);
-  const [newChat, setNewChat] = useState(false);
-  const [allThreads, setAllThreads] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
 
   const providerValues = {
-    prompt, setPrompt,
-    reply, setReply,
-    currThreadId, setcurrThreadId,
-    newChat, setNewChat,
-    prevChats, setPrevChats,
-    allThreads, setAllThreads,
-    isAuthenticated, setIsAuthenticated,
+    isAuthenticated,
+    setIsAuthenticated,
   };
 
   return (
-    <div className="app">
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <MyContext.Provider value={providerValues}>
-          <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
-          <AppRoutes />
-        </MyContext.Provider>
-      </GoogleOAuthProvider>
-    </div>
+    <MyContext.Provider value={providerValues}>
+      <AppRoutes />
+    </MyContext.Provider>
   );
 }
 
 export default App;
-
-
 
 // import "./App.css";
 // import { useState } from "react";
