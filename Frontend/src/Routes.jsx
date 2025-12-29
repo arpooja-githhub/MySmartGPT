@@ -12,12 +12,10 @@ function AppRoutes() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-    setLoading(false); // done checking
-  }, [setIsAuthenticated]);
+  const token = localStorage.getItem("token");
+  if (token) setIsAuthenticated(true);
+  setLoading(false);
+}, [setIsAuthenticated]);
 
   if (loading) return <p>Loading...</p>; // prevent early redirect
 
