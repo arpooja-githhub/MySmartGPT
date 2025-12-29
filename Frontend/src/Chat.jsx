@@ -23,6 +23,7 @@ function Chat(){
             idx++;
             if(idx>=content.length) clearInterval(interval);
         },40)
+         return () => clearInterval(interval);
 
     },[prevChats,reply])
 

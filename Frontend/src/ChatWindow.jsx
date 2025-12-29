@@ -44,33 +44,29 @@ function ChatWindow(){
 
 
      
-    const getReply = async() =>{
-        setLoading(true);
-        setNewChat(false);
-        console.log("message : ",prompt," threadId ",currThreadId);
-        const options = {
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-            body:JSON.stringify({
-                message:prompt,
-                threadId:currThreadId
-            })
-        };
+  const getReply = async () => {
+    if (!prompt || !prompt.trim()) return; 
 
-        try{
-    
-            const response = await fetch(`${API_URL}/api/chat`,options);
-            const res = await response.json();
-            console.log(res);
-            setReply(res.reply);
-        }catch(err){
-            console.log(err);
-        }
-        setLoading(false);
-    }
+    setLoading(true);
+    setNewChat(false);
+
+    const response = await fetch(`${API_URL}/api/chat`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+        message: prompt.trim(),
+        threadId: currThreadId,
+        }),
+    });
+
+  const res = await response.json();
+  setReply(res.reply);
+  setLoading(false);
+};
+
 
     useEffect(() => {
         if (!prompt || !reply) return;
@@ -139,7 +135,7 @@ useEffect(() => {
   const stopMic = () => {
   SpeechRecognition.stopListening();
   resetTranscript();
-  setPrompt(""); // optional: also clear your input box
+  
 };
 
 
