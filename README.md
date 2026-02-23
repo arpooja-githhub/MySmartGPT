@@ -26,7 +26,7 @@ SmartGPT allows users to securely log in, interact with AI in real-time, manage 
 - React.js
 - Context API / State Management
 - Axios
-- CSS / Tailwind (if used)
+- CSS / Tailwind 
 
 **Backend:**
 - Node.js
